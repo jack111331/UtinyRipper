@@ -41,7 +41,11 @@ namespace uTinyRipperGUI
 				return;
 			}
 #endif
-
+			if(m_counter > CLEAR_TEXTBOX_THRESHOLD)
+			{
+				m_textBox.Clear();
+				m_counter = 0;
+			}
 			m_textBox.AppendText(category.ToString());
 			switch (type)
 			{
@@ -55,8 +59,11 @@ namespace uTinyRipperGUI
 			m_textBox.AppendText(": ");
 			m_textBox.AppendText(message);
 			m_textBox.AppendText(Environment.NewLine);
+			m_counter++;
 		}
 
 		private readonly TextBox m_textBox;
+		private UInt32 m_counter = 0;
+		private const UInt32 CLEAR_TEXTBOX_THRESHOLD = 128;
 	}
 }
